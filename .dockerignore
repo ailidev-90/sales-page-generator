@@ -1,0 +1,15 @@
+.env
+.git
+.gitignore
+node_modules
+vendor
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/walkthrough-video
+database/database.sqlite
+public/build
+npm-debug.log
+yarn-error.log
+.DS_Store

@@ -1,0 +1,23 @@
+Hi, this is a technical walkthrough of the AI Sales Page Generator project.
+
+The problem this project solves is simple: product teams and small businesses often have raw product details, but they still need a polished sales page with a headline, benefits, features, pricing copy, social proof, and a clear call to action. This app turns those raw inputs into a structured landing page using an LLM API.
+
+For the selected implementation, I used a Laravel fullstack approach. The stack is Laravel 11, Breeze-style authentication, Blade templates, Tailwind CSS, Vite, SQLite for local development, and an OpenAI integration. The architecture is intentionally simple: controllers handle requests, Eloquent models handle persistence, Blade renders the UI, and a dedicated service handles AI generation.
+
+Authentication is included through register, login, and logout flows. The main app routes are protected by Laravel's auth middleware. That includes the generator, saved pages, preview, edit, delete, and HTML export features. Each sales page belongs to one user, and authorization ensures users can only access their own records.
+
+The product input flow starts on the generator form. The user enters the product or service name, description, target audience, key features, price, unique selling points, design template, and tone. Laravel validation protects the required fields, while optional fields can be left blank. The UI includes clear sections, validation messages, and a loading state while generation is running.
+
+When the form is submitted, the validated input is passed to the AI Sales Page Service. This service builds a focused prompt, calls the OpenAI chat completions API, and asks for structured JSON. The expected fields are headline, subheadline, product description, benefits, features, social proof placeholder, pricing display, and CTA text. The app never renders raw AI text directly. It parses JSON safely and normalizes the response before saving.
+
+The generated result is stored in the sales pages table. The original input fields are saved together with the generated content JSON. This makes the result reusable without calling the AI API again every time the user previews, edits, searches, or exports a page.
+
+The saved pages screen works as the user's library. It supports search by product name or generated headline. Each saved page card shows the product name, template, tone, headline, audience, price, update time, and actions for preview, edit, export, and delete.
+
+The live preview renders the generated JSON as a complete landing page. It includes a hero section, product description, benefits cards, feature breakdown, social proof placeholder, pricing section, and final call to action. The selected template changes the visual style. Modern is a clean SaaS style, elegant is a soft premium style, and bold is a high-contrast marketing style.
+
+The export feature downloads a standalone HTML file. It uses a dedicated Blade export template and embeds Tailwind through the CDN, so the exported page can be opened outside the Laravel app.
+
+Finally, the fallback behavior is important for reliability. If the OpenAI API key is missing, the API request fails, or the response is invalid JSON, the app generates high-quality mock content from the user's input. That means the app still works during local development, demos, and assessment review without external API access.
+
+Overall, this project demonstrates a clean Laravel workflow: authentication, validated input, AI service integration, JSON persistence, user-scoped CRUD, live preview, HTML export, responsive UI, and reliable fallback behavior.
