@@ -176,6 +176,8 @@ After deployment, open the generated public URL and verify:
 - Preview and export HTML work.
 - The app is using MySQL, not localhost SQLite.
 
+If Apache logs show `AH00534: More than one MPM loaded`, rebuild and redeploy the latest Docker image. The Dockerfile explicitly disables `mpm_event` and `mpm_worker`, then enables `mpm_prefork`, which is the correct Apache MPM for the PHP Apache image used by this prototype.
+
 ## Demo Account
 
 The seeder creates an optional demo user:
