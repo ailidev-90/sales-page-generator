@@ -4,6 +4,12 @@
         <p class="mt-2 text-sm text-slate-600">Access your generated sales pages.</p>
     </div>
 
+    <div class="mb-6 rounded-lg border border-indigo-100 bg-indigo-50 px-4 py-3 text-sm text-indigo-900">
+        <p class="font-semibold">Demo account</p>
+        <p class="mt-1">Email: <span class="font-mono">demo@example.com</span></p>
+        <p>Password: <span class="font-mono">password</span></p>
+    </div>
+
     <form method="POST" action="{{ route('login') }}" class="space-y-5">
         @csrf
 

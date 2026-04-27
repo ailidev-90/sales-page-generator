@@ -161,6 +161,8 @@ OPENAI_API_KEY=
 OPENAI_MODEL=gpt-4o-mini
 ```
 
+`RUN_SEEDER` defaults to `true` in the Docker startup script so the demo account is created automatically for the published prototype. You can set `RUN_SEEDER=false` later if you do not want demo credentials in production.
+
 Railway exposes MySQL variables named `MYSQLHOST`, `MYSQLPORT`, `MYSQLDATABASE`, `MYSQLUSER`, and `MYSQLPASSWORD`. The app reads those automatically, so you do not need to manually duplicate them into Laravel `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD`.
 
 Do not copy local `.env` values into Railway. Remove or override these local-only values if they exist in the Railway web app service:
