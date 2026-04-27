@@ -150,6 +150,7 @@ APP_KEY=base64:your-generated-key
 APP_URL=https://your-public-url
 
 DB_CONNECTION=mysql
+LOG_CHANNEL=stderr
 SESSION_DRIVER=file
 CACHE_STORE=file
 QUEUE_CONNECTION=sync
@@ -161,6 +162,32 @@ OPENAI_MODEL=gpt-4o-mini
 ```
 
 Railway exposes MySQL variables named `MYSQLHOST`, `MYSQLPORT`, `MYSQLDATABASE`, `MYSQLUSER`, and `MYSQLPASSWORD`. The app reads those automatically, so you do not need to manually duplicate them into Laravel `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD`.
+
+Do not copy local `.env` values into Railway. Remove or override these local-only values if they exist in the Railway web app service:
+
+```env
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+DB_CONNECTION=sqlite
+DB_DATABASE=/Users/...
+LOG_CHANNEL=stack
+```
+
+The Docker build removes `.env` from the image. The startup script defaults to production-safe values, and if Railway MySQL variables are present it forces `DB_CONNECTION=mysql` and maps the Railway `MYSQL*` variables into Laravel `DB_*` variables.
+
+The current Railway MySQL variables are compatible with this app:
+
+```env
+MYSQLDATABASE="${{MYSQL_DATABASE}}"
+MYSQLHOST="${{RAILWAY_PRIVATE_DOMAIN}}"
+MYSQLPASSWORD="${{MYSQL_ROOT_PASSWORD}}"
+MYSQLPORT="3306"
+MYSQLUSER="root"
+MYSQL_URL="mysql://${{MYSQLUSER}}:${{MYSQL_ROOT_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:3306/${{MYSQL_DATABASE}}"
+```
+
+Use the private host/URL for the deployed app service. `MYSQL_PUBLIC_URL` is only needed for connecting from your local machine.
 
 Generate a production app key locally with:
 

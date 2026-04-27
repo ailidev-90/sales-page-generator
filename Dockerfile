@@ -25,10 +25,11 @@ COPY . .
 COPY --from=assets /app/public/build ./public/build
 COPY docker/start.sh /usr/local/bin/start
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress \
+RUN rm -f .env \
+    && composer install --no-dev --optimize-autoloader --no-interaction --no-progress \
     && chmod +x /usr/local/bin/start \
     && mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views bootstrap/cache \
-    && chmod -R ug+rwx storage bootstrap/cache
+    && chmod -R 0777 storage bootstrap/cache
 
 EXPOSE 8080
 
