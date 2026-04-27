@@ -3,6 +3,7 @@ set -e
 
 PORT="${PORT:-8080}"
 
+export APP_NAME="${APP_NAME:-AI Sales Page Generator}"
 export APP_ENV="${APP_ENV:-production}"
 export APP_DEBUG="${APP_DEBUG:-false}"
 export LOG_CHANNEL="${LOG_CHANNEL:-stderr}"
@@ -38,7 +39,7 @@ mkdir -p storage/framework/cache/data storage/framework/sessions storage/framewo
 chmod -R 0777 storage bootstrap/cache
 
 echo "Starting Laravel on port ${PORT}" >&2
-echo "APP_ENV=${APP_ENV}, APP_DEBUG=${APP_DEBUG}, DB_CONNECTION=${DB_CONNECTION:-sqlite}" >&2
+echo "APP_NAME=${APP_NAME}, APP_ENV=${APP_ENV}, APP_DEBUG=${APP_DEBUG}, DB_CONNECTION=${DB_CONNECTION:-sqlite}" >&2
 
 php artisan config:clear
 php artisan route:clear
