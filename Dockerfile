@@ -25,7 +25,7 @@ COPY . .
 COPY --from=assets /app/public/build ./public/build
 COPY docker/start.sh /usr/local/bin/start
 
-RUN rm -f .env \
+RUN rm -f .env public/hot \
     && composer install --no-dev --optimize-autoloader --no-interaction --no-progress \
     && chmod +x /usr/local/bin/start \
     && mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views bootstrap/cache \

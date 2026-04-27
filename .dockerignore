@@ -10,6 +10,7 @@ storage/framework/views/*
 storage/walkthrough-video
 database/database.sqlite
 public/build
+public/hot
 npm-debug.log
 yarn-error.log
 .DS_Store

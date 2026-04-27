@@ -11,7 +11,7 @@ export SESSION_DRIVER="${SESSION_DRIVER:-file}"
 export CACHE_STORE="${CACHE_STORE:-file}"
 export QUEUE_CONNECTION="${QUEUE_CONNECTION:-sync}"
 
-if [ -z "${APP_URL:-}" ] && [ -n "${RAILWAY_PUBLIC_DOMAIN:-}" ]; then
+if [ -n "${RAILWAY_PUBLIC_DOMAIN:-}" ]; then
     export APP_URL="https://${RAILWAY_PUBLIC_DOMAIN}"
 fi
 
