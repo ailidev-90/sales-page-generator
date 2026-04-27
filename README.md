@@ -133,7 +133,7 @@ php artisan route:cache
 
 ## Published Prototype Deployment
 
-For the assessment requirement, deploy the app to a public web service and connect it to a managed database. The repository includes a `Dockerfile`, Apache virtual host, and startup script for container deployment.
+For the assessment requirement, deploy the app to a public web service and connect it to a managed database. The repository includes a `Dockerfile` and startup script for container deployment.
 
 Recommended quick path: Railway + MySQL.
 
@@ -176,7 +176,7 @@ After deployment, open the generated public URL and verify:
 - Preview and export HTML work.
 - The app is using MySQL, not localhost SQLite.
 
-If Apache logs show `AH00534: More than one MPM loaded`, rebuild and redeploy the latest Docker image. The Dockerfile explicitly disables `mpm_event` and `mpm_worker`, then enables `mpm_prefork`, which is the correct Apache MPM for the PHP Apache image used by this prototype.
+If an older deployment shows `AH00534: More than one MPM loaded`, force a fresh rebuild and redeploy. The current Dockerfile no longer uses Apache; it runs Laravel directly with `php artisan serve` on Railway's `$PORT`, so Apache MPM configuration is no longer involved.
 
 ## Demo Account
 
